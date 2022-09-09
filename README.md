@@ -1,74 +1,15 @@
-# Data analysis
-- Document here the project: Disaster_Response_Pipeline
-- Description: Project Description
-- Data Source:
-- Type of analysis:
+# Disaster Response Pipeline Project
 
-Please document the project the better you can.
+### Instructions:
+1. Run the following commands in the project's root directory to set up your database and model.
 
-# Startup the project
+    - To run ETL pipeline that cleans data and stores in database
+        `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
+    - To run ML pipeline that trains classifier and saves
+        `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
 
-The initial setup.
+2. Go to `app` directory: `cd app`
 
-Create virtualenv and install the project:
-```bash
-sudo apt-get install virtualenv python-pip python-dev
-deactivate; virtualenv ~/venv ; source ~/venv/bin/activate ;\
-    pip install pip -U; pip install -r requirements.txt
-```
+3. Run your web app: `python run.py`
 
-Unittest test:
-```bash
-make clean install test
-```
-
-Check for Disaster_Response_Pipeline in gitlab.com/{group}.
-If your project is not set please add it:
-
-- Create a new project on `gitlab.com/{group}/Disaster_Response_Pipeline`
-- Then populate it:
-
-```bash
-##   e.g. if group is "{group}" and project_name is "Disaster_Response_Pipeline"
-git remote add origin git@github.com:{group}/Disaster_Response_Pipeline.git
-git push -u origin master
-git push -u origin --tags
-```
-
-Functionnal test with a script:
-
-```bash
-cd
-mkdir tmp
-cd tmp
-Disaster_Response_Pipeline-run
-```
-
-# Install
-
-Go to `https://github.com/{group}/Disaster_Response_Pipeline` to see the project, manage issues,
-setup you ssh public key, ...
-
-Create a python3 virtualenv and activate it:
-
-```bash
-sudo apt-get install virtualenv python-pip python-dev
-deactivate; virtualenv -ppython3 ~/venv ; source ~/venv/bin/activate
-```
-
-Clone the project and install it:
-
-```bash
-git clone git@github.com:{group}/Disaster_Response_Pipeline.git
-cd Disaster_Response_Pipeline
-pip install -r requirements.txt
-make clean install test                # install and test
-```
-Functionnal test with a script:
-
-```bash
-cd
-mkdir tmp
-cd tmp
-Disaster_Response_Pipeline-run
-```
+4. Click the `PREVIEW` button to open the homepage. Front End was made with Flask, model tested with XGBoost
