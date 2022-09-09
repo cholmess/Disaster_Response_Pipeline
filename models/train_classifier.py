@@ -60,6 +60,7 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    ''' Evaluate the three metrics and print results '''
     accuracy = []
     precision = []
     recall = []
@@ -75,6 +76,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    ''' Save as a picke file '''
     with open(model_filepath, 'wb') as f:
         pickle.dump(model, f)
 
