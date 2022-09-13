@@ -7,11 +7,15 @@ from sqlalchemy import create_engine
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score, recall_score, precision_score
 import xgboost as xgb
+from ray import tune
+from ray.tune.search.bayesopt import BayesOptSearch
+from skopt import BayesSearchCV
 import pickle
 
 url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
@@ -49,7 +53,18 @@ def build_model():
                 ('tfidf', TfidfTransformer()),
                 ('clf',MultiOutputClassifier(xgb.XGBClassifier(objective="binary:logistic")))
     ])
-    return pipeline
+    
+    params = {
+        'min_child_weight': [1, 5, 10],
+        'gamma': [0.5, 1, 1.5, 2, 5],
+        'subsample': [0.6, 0.8, 1.0],
+        'colsample_bytree': [0.6, 0.8, 1.0],
+        'max_depth': [3, 4, 5]
+        }
+    
+    grid = BayesSearchCV(pipeline, search_spaces=params, scoring='accuracy', n_iter=10,n_jobs=-1, verbose=0 )
+    
+    return grid
 
 
 
