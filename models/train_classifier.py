@@ -55,14 +55,13 @@ def build_model():
     ])
     
     params = {
-        'min_child_weight': [1, 5, 10],
-        'gamma': [0.5, 1, 1.5, 2, 5],
-        'subsample': [0.6, 0.8, 1.0],
-        'colsample_bytree': [0.6, 0.8, 1.0],
-        'max_depth': [3, 4, 5]
+        'clf__estimator__min_child_weight': [1, 5, 10],
+        'clf__estimator__gamma': [0.5, 1, 1.5, 2, 5],
+        'clf__estimator__subsample': [0.6, 0.8, 1.0],
+        'clf__estimator__max_depth': [3, 4, 5]
         }
     
-    grid = BayesSearchCV(pipeline, search_spaces=params, scoring='accuracy', n_iter=10,n_jobs=-1, verbose=0 )
+    grid = BayesSearchCV(pipeline, search_spaces=params, n_iter=10,n_jobs=-1, verbose=0 )
     
     return grid
 

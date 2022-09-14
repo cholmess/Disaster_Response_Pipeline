@@ -35,13 +35,17 @@ model = joblib.load("../models/classifier.pkl")
 
 # index webpage displays cool visuals and receives user input text for model
 @app.route('/')
-@app.route('/index')
-def index():
+@app.route('/master')
+def master():
     
     # extract data needed for visuals
     # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
+    
+    category_percentage = df.drop(['genre','id','message','original'],axis=1).sum(axis=0)/df.shape[0]
+    
+    category_names = category_percentage.columns.to_list()
     
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
@@ -61,6 +65,24 @@ def index():
                 },
                 'xaxis': {
                     'title': "Genre"
+                }
+            }
+        },
+         {
+            'data': [
+                Bar(
+                    x=category_names,
+                    y=category_percentage
+                )
+            ],
+
+            'layout': {
+                'title': 'Distribution of Message Categories',
+                'yaxis': {
+                    'title': "Percentage"
+                },
+                'xaxis': {
+                    'title': "Categories"
                 }
             }
         }
