@@ -35,4 +35,4 @@ Model is able to predict with 95% accuracy, 66% precision and 79% recall the cat
 
 ### Acknowledgement/References
 
-Thanks to Udacity & Bosch for creating the front end with Flask and providing the data 
+Thanks to Udacity & Bosch for creating the front end with Bootstrap and providing the data 
