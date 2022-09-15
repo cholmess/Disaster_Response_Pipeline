@@ -35,8 +35,8 @@ model = joblib.load("../models/classifier.pkl")
 
 # index webpage displays cool visuals and receives user input text for model
 @app.route('/')
-@app.route('/master')
-def master():
+@app.route('/index')
+def index():
     
     # extract data needed for visuals
     # TODO: Below is an example - modify to extract data for your own visuals
@@ -45,7 +45,7 @@ def master():
     
     category_percentage = df.drop(['genre','id','message','original'],axis=1).sum(axis=0)/df.shape[0]
     
-    category_names = category_percentage.columns.to_list()
+    category_names = list(category_percentage.index)
     
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
@@ -67,7 +67,8 @@ def master():
                     'title': "Genre"
                 }
             }
-        },
+        }
+    ,
          {
             'data': [
                 Bar(
@@ -86,7 +87,8 @@ def master():
                 }
             }
         }
-    ]
+         ]
+        
     
     # encode plotly graphs in JSON
     ids = ["graph-{}".format(i) for i, _ in enumerate(graphs)]
